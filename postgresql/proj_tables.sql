@@ -54,10 +54,10 @@ INSERT INTO users (username, email, password)
 VALUES ('Adriana1234', 'Adriana1234@gmail.pt', 'Adriana1234');
 
 INSERT INTO users (username, email, password)
-VALUES ('Tchabes1234', 'Tchabes12341234@gmail.pt', 'Tchabes12341234');
+VALUES ('Tchabes1234', 'Tchabes1234@gmail.pt', 'Tchabes1234');
 
 INSERT INTO users (username, email, password)
-VALUES ('Duarte1234', 'Duarte12341234@gmail.pt', 'Duarte12341234');
+VALUES ('Duarte1234', 'Duarte1234@gmail.pt', 'Duarte1234');
 
 
 --Criar leilão:

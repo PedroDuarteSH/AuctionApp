@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
 
     logger.info("\n---------------------------------------------------------------\n" + 
-                  "API v1.0 online: http://localhost:8080/departments/\n\n")
+                  "API v1.0 online: http://localhost:8080/users/\n\n")
     
 
     app.run(host="0.0.0.0", debug=True, threaded=True)
