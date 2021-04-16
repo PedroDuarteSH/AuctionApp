@@ -17,16 +17,15 @@ services:
     ports:
       - "5432:5432"
 
-  #pgadmin:
-    #build: ./pgadmin
-    #depends_on:
-      #-db
-    #container_name: pgadmin
-    #expose:
-    #  - "5555"
-    #ports:
-     # - "5555:80"
-    
+  pgadmin:
+    build: ./pgadmin
+    depends_on:
+      -db
+    container_name: pgadmin
+    expose:
+      - "5555"
+    ports:
+      - "5555:80"
 
   web:
     build: ./python
