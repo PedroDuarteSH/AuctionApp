@@ -1,8 +1,8 @@
 # Base de Dados - Conexão ao PGADMIN
 
 ## Login into PGADMIN
-- **Username**:project_bd@dei.pt
-- **Password**:project_bd
+- **Username**: project_bd@dei.pt
+- **Password**: project_bd
 
 ## Add server in PGADMIN
 - **Name**: Choose a good name :)
