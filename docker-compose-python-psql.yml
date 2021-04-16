@@ -20,8 +20,8 @@ services:
   pgadmin:
     build: ./pgadmin
     depends_on:
-      -db
-    container_name: pgadmin
+      - db
+    container_name: pgadm
     expose:
       - "5555"
     ports:
