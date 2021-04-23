@@ -9,6 +9,8 @@
 ## =========== University of Coimbra ===========
 ## =============================================
 
+## TODO 
+## add_a_user -> FALTA SEGURANÇA DA PASSWORD 
 
  
 from flask import Flask, jsonify, request
@@ -25,7 +27,7 @@ def hello():
 
 
 
-##      Demo GET
+## Demo GET
 ##
 ## Obtain all users, in JSON format
 ##
@@ -34,9 +36,9 @@ def hello():
 ##   http://localhost:8080/users/
 ##
 
-@app.route("/users/", methods=['GET'], strict_slashes=True)
+@app.route("/user/", methods=['GET'], strict_slashes=True)
 def get_all_users():
-    logger.info("###              DEMO: GET /users              ###");   
+    logger.info("###              DEMO: GET /user              ###");   
 
     conn = db_connection()
     cur = conn.cursor()
@@ -45,7 +47,7 @@ def get_all_users():
     rows = cur.fetchall()
 
     payload = []
-    logger.debug("---- users  ----")
+    logger.debug("---- user  ----")
     for row in rows:
         logger.debug(row)
         content = {'username': row[0], 'email': row[1], 'password': row[2]}
@@ -56,10 +58,48 @@ def get_all_users():
 
 
 
+## Add a new department in a JSON payload
+##
+## To use it, you need to use postman or curl: 
+##
+##   curl -X POST http://localhost:8080/user/ -H "Content-Type: application/json" -d '{"username": "Adriana1234", "email": Adriana1234@gmail.com, "password": "Adriana1234"}'
+
+@app.route("/users/", methods=['POST'], strict_slashes=True)
+def add_a_user():
+    logger.info("###              DEMO: POST /users              ###")
+
+    user_add = request.get_json()
+    
+    conn = db_connection()
+    cur = conn.cursor()
+    
+    logger.info("---- new user  ----")
+    logger.debug(f'payload: {user_add}')
+    
+    statement = """INSERT INTO users (username, email, password)
+                VALUES ( %s,   %s ,   %s )"""
+
+    values = (payload["username"], payload["email"], payload["password"])
+
+
+    try:
+        cur.execute(statement, values)
+        cur.execute("commit")
+        get_user = """Select id from users where username = """ + payload["username"]
+        cur.execute(get_user)
+        rows = cur.fetchrow()
+    except (Exception, psycopg2.DatabaseError) as error:
+        logger.error(error)
+        result = 'Failed!'
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return jsonify(result)
+
 ##########################################################
 ## DATABASE ACCESS
 ##########################################################
-
 def db_connection():
     db = psycopg2.connect(user = "project",
                             password = "project",
@@ -73,8 +113,7 @@ def db_connection():
 ## MAIN
 ##########################################################
 if __name__ == "__main__":
-
-    # Set up the logging
+        # Set up the logging
     logging.basicConfig(filename="logs/log_file.log")
     logger = logging.getLogger('logger')
     logger.setLevel(logging.DEBUG)
@@ -93,7 +132,7 @@ if __name__ == "__main__":
 
 
     logger.info("\n---------------------------------------------------------------\n" + 
-                  "API v1.0 online: http://localhost:8080/users/\n\n")
+                  "API v1.0 online: http://localhost:8080/user/\n\n")
     
 
     app.run(host="0.0.0.0", debug=True, threaded=True)
