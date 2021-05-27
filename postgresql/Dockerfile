@@ -15,5 +15,7 @@ ENV POSTGRES_PASSWORD project
 ENV POSTGRES_DB project_bd
 
 COPY proj_tables.sql /docker-entrypoint-initdb.d/
+COPY somedata.sql /docker-entrypoint-initdb.d/
+
 
 EXPOSE 5432

@@ -7,22 +7,24 @@
 #   BD 2021 Team - https://dei.uc.pt/lei/
 #   University of Coimbra
 
-from python:3.9-alpine
+FROM python:3.9-alpine
 
 RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 
-run pip install flask
+RUN pip install flask
 
-run pip install psycopg2-binary
+RUN pip install psycopg2-binary
 
-copy . /app
+RUN pip install pyjwt
 
-volume ["/app"]
+COPY . /app
 
-workdir /app
+VOLUME ["/app"]
 
-run mkdir -p logs
+WORKDIR /app
+
+RUN mkdir -p logs
 
 EXPOSE 5000
 
-CMD ["python", "demo-api.py"]
+CMD ["python", "main.py"]
